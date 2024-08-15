@@ -1,15 +1,14 @@
-import { ThemeProvider } from '@mui/material/styles'
-import FormLogin from './pages/Login'
+
+import FormLogin from './pages/Login/Login'
 import { theme } from './context/themeContext'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 function App() {
  
 
   return (
     <>
-    <ThemeProvider theme={theme}>
-      <FormLogin/>
-    </ThemeProvider>
+      <Dashboard/>
     </>
   )
 }
