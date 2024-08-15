@@ -1,0 +1,17 @@
+{
+  "name": "projeto-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:generate": "node seed.js",
+    "dev:server": "json-server bd.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "json-server": "^1.0.0-beta.1"
+  }
+}
