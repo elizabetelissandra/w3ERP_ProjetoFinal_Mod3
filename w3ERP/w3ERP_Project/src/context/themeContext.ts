@@ -21,8 +21,6 @@ export const theme = createTheme({
     success: {
       main: '#00C247',
     },
-  },
-  typography: {
-    fontFamily: 'Sora',
-  },
+    
+  }
 });
