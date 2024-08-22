@@ -3,6 +3,10 @@ const fs = require("fs");
 
 let data = { products: [], customers: [] };
 
+const shuffle = (array) => {
+  return array.sort(() => Math.random() - 0.5);
+};
+
 for (let i = 0; i < 200; i++) {
   data.products.push({
     id: i,
@@ -15,13 +19,19 @@ for (let i = 0; i < 200; i++) {
 }
 
 for (let j = 0; j < 200; j++) {
+  const shuffledProducts = shuffle(data.products.slice(0, 10));
+
   data.customers.push({
     id: j,
     name: faker.company.name(),
     phone: faker.phone.number(),
     email: faker.internet.email(),
+    percentage: faker.number.float({ min: -1, max: 1 }),
+    products: shuffledProducts,
   });
 }
+
+
 
 const file = "./bd.json";
 
