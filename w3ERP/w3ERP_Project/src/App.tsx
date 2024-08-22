@@ -1,14 +1,12 @@
 
-import FormLogin from './pages/Login/Login'
-import { theme } from './context/themeContext'
-import Dashboard from './pages/Dashboard/Dashboard'
+import Routes from './hooks/router/router'
 
 function App() {
  
 
   return (
     <>
-      <Dashboard/>
+      <Routes/>
     </>
   )
 }
