@@ -8,18 +8,22 @@ interface ButtonSwitchProps {
     onClick?: () => void
     onMouseDown?: () => void
     buttonName?: string
+    selected: boolean
 }
 
-const ButtonSwitch: React.FC<ButtonSwitchProps> = ({type, className, onClick, onMouseDown, buttonName}) => {
+const ButtonSwitch: React.FC<ButtonSwitchProps> = ({type, selected = false, className, onClick, onMouseDown, buttonName}) => {
 
 
     return (
-        <Button
+        <Button 
             theme={theme}
             type={type}
-            className={className}
+            className={`${className} ${selected ? 'buttonAlto' : 'buttonBaixo'}`}
             onClick={onClick}
             onMouseDown={onMouseDown}
+            style={{
+                background: selected ? theme.palette.error.main : theme.palette.success.main}
+            }
         >
             {buttonName}
         </Button>

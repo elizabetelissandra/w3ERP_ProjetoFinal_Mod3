@@ -67,7 +67,7 @@ export const DivTabelas = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
     gap: 20px;
     margin: 20px;
@@ -100,3 +100,9 @@ export const ImgProdutos = styled.img`
     border-radius: 10px;
     background: ${theme.palette.primary.main};
 `
+export const DivButton = styled.div`
+    background: #E0E0E0;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+    `
