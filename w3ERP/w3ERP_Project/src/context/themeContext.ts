@@ -21,5 +21,27 @@ export const theme = createTheme({
     success: {
       main: '#00C247',
     },
-  }
+    background: {
+      default: '#F5F5F5',
+      paper: '#E0E0E0',
+    },
+    text: {
+      primary: '#000000',
+      secondary: '#FFFFFF',
+    },
+  },
 });
+
+export const colors = {
+    primary: '#001C98',
+    secondary: '#FFC24A',
+    error: '#FF3333',
+    warning: '#FFE038',
+    info: '#004CE8',
+    success: '#00C247',
+    background: '#F5F5F5',
+    text: {
+      primary: '#000000',
+      secondary: '#FFFFFF',
+    },
+  }
