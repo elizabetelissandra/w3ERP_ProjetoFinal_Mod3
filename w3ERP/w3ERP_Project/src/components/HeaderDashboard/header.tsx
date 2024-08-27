@@ -4,14 +4,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import UserIcon from "../../ui/img/user.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { DivHeader, FigureHeader, FigureIMG, HeaderStyled, SpanNome } from "./headerStyles";
+import React from "react";
 
-const Header = () => {
+interface HeaderProps {
+  onClick: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({onClick}) => {
   return (
     <>
       <HeaderStyled>
         <div>
           <Stack direction="row" spacing={1}>
-            <IconButton aria-label="menu">
+            <IconButton aria-label="menu" onClick={onClick}>
               <MenuIcon />
             </IconButton>
           </Stack>
@@ -21,8 +26,8 @@ const Header = () => {
             <img src={UserIcon} alt="icone do usuário" />
           </FigureIMG>
           <FigureHeader>
-            <SpanNome>Nome do Usuario</SpanNome>
-            <span>E-mail</span>
+            <SpanNome>Elizabete Lissandra</SpanNome>
+            <span>elizabete@gmail.com</span>
           </FigureHeader>
           <KeyboardArrowDownIcon />
         </DivHeader>

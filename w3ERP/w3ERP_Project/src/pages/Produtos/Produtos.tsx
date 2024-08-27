@@ -6,13 +6,14 @@ import { DivDashboard } from "../Dashboard/DashboardStyles";
 import { useEffect, useState } from "react";
 import { axiosProdutos } from "../../api/axiosConfig";
 import { Product } from "../../types/DashboardTypes";
-import { DivAroundSearchProdutos, DivHeader, DivPagination, SpanEmAlta, SpanEmBaixa, StyledPaginateContainer, TrTable } from "./ProdutosStyles";
-import {  DivInputSearch, H3, InputSearch } from "../Predicoes/PredicoesStyles";
+import { DivAroundSearchProdutos, DivHeader, DivPagination, H3, SpanEmAlta, SpanEmBaixa, StyledPaginateContainer, TrTable } from "./ProdutosStyles";
+import {  DivInputSearch, InputSearch } from "../Predicoes/PredicoesStyles";
 import SearchIcon from "@mui/icons-material/Search";
 import { TdId } from "../../components/Tabelas/TablesComponentStyles";
 import ReactPaginate from 'react-paginate';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { useMenu } from "../../context/menuContext";
 
 const Produtos = () => {
 const [produtos, setProdutos] = useState<Product[]>([]);
@@ -20,6 +21,8 @@ const [searchTerm, setSearchTerm] = useState('')
 const [currentPage, setCurrentPage] = useState(0);
 const [totalProducts, setTotalProducts] = useState(0);
 const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+const [isOpen, setIsOpen] = useState<boolean>(true);
+const { menu, toggleMenu } = useMenu();
 const productsPerPage = 5;
 
     useEffect(() => {
@@ -30,6 +33,8 @@ const productsPerPage = 5;
             setFilteredProducts(response.data.slice(0, productsPerPage));
         }
         fetchData()
+
+
     }, []);
 
     
@@ -50,9 +55,10 @@ const productsPerPage = 5;
   return (
     <>
       <DivDashboard>
-        <Menu />
+        <Menu isOpen={menu}
+         />
         <DivHeader>
-          <Header />
+          <Header onClick={toggleMenu} />
           <H3>Produtos</H3>
           <DivAroundSearchProdutos>
               <DivInputSearch>

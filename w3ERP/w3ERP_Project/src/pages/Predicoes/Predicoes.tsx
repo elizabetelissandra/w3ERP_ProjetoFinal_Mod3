@@ -14,13 +14,16 @@ import {
   InputSearch,
 } from "../Predicoes/PredicoesStyles";
 import SearchIcon from "@mui/icons-material/Search";
+import { useMenu } from "../../context/menuContext";
 
 const Predicoes = () => {
   const [produtos, setProdutos] = useState<Product[]>([]);
   const [clientes, setClientes] = useState<Customer[]>([]);
   const [dataTableProdutos, setDataTableProdutos] = useState<Product[]>([]);
   const [dataTableClientes, setDataTableClientes] = useState<Customer[]>([]);
+  const [ isOpen, setIsOpen] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState('')
+  const { menu, toggleMenu } = useMenu();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,9 +47,9 @@ const Predicoes = () => {
   return (
     <>
       <DivDashboard>
-        <Menu />
+        <Menu isOpen={menu} />
         <DivHeader>
-          <Header />
+          <Header onClick={toggleMenu} />
           <DivNomeSeach>
             <H3>Predições</H3>
             <DivAroundSearch>
