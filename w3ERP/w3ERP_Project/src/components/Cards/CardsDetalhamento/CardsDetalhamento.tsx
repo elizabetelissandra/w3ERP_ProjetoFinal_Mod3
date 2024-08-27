@@ -14,7 +14,9 @@ const CardDetalhamento: React.FC<CardDetalhamentoProps> = ({infoName, infoValue,
         <>
         <DivCard backgroundColor={backgroundColor}>
             <PCard color={colorText}>{infoName}</PCard>
+            <div>
             <SpanCard color={colorSpan}>{infoValue}</SpanCard>
+            </div>
         </DivCard>
         </>
     )

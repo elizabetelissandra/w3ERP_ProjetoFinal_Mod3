@@ -39,7 +39,6 @@ const FormLogin = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (emailValid && passwordValid) {
-      alert("Login efetuado com sucesso!");
       window.location.href = "/Dashboard";
     } else {
       alert("Email ou senha inválidos");
