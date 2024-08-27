@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import { ButtonOne, ButtonsProps, ButtonTwo } from "./buttonOne";
+import { theme } from "../../context/themeContext";
+
+interface ButtonStyledProps extends ButtonsProps {
+
+    isSelected: boolean;
+}
 
 export const Button = styled.button`
     background: ${props => props.theme.palette.error.main};
@@ -9,5 +16,23 @@ export const Button = styled.button`
     font-size: 12px;
     font-weight: 300;
     padding: 10px;
+    width: 100px;
+`
+
+export const ButtonOneStyled = styled.button<ButtonStyledProps>`
+    background: ${ props => props.isSelected ? theme.palette.success.main : theme.palette.background.paper};
+    color: ${props => props.isSelected ? theme.palette.primary.contrastText : theme.palette.text.primary};
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 100px;
+`
+
+export const ButtonTwoStyled = styled.button<ButtonStyledProps>`
+    background: ${ props => props.isSelected ? theme.palette.error.main : theme.palette.background.paper};
+    color: ${props => props.isSelected ? theme.palette.primary.contrastText : theme.palette.text.primary};
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
     width: 100px;
 `

@@ -83,6 +83,7 @@ export const DivTabela = styled.div`
     gap: 20px;
     box-shadow: -2px -1px 40px -10px rgba(0,0,0,0.75);
     border-radius: 10px;
+    background: ${theme.palette.background.default};
 `
 
 export const DivBotoes = styled.div`

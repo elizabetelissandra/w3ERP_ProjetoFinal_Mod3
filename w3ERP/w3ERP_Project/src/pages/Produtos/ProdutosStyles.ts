@@ -19,7 +19,7 @@ export const SpanEmBaixa = styled.span`
 export const DivHeader = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     gap: 20px;
 `
@@ -30,12 +30,20 @@ export const TrTable = styled.tr`
 export const DivAroundSearchProdutos = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: start;
     width: 90%;
     margin-left: 40px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     padding: 20px;
     gap:20px;
+`
+
+export const H3 = styled.h3`
+    color: ${theme.palette.common.black};
+    font-size: 32px;
+    text-align: start;
+    margin-left: 40px;
 `
 
 export const DivPagination = styled.div`    
