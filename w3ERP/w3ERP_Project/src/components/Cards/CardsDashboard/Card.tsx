@@ -1,24 +1,33 @@
-import  {DivCard, DivConteudo, DivValores, PCard, PPorcentagem, PQuantidade } from "../CardsDashboard/CardStyles"
+import { RadialBarDasboard } from "../../Graphic/Graphic"
+import  {DivCard, DivConteudo, DivGrafico, DivValores, PCard, PPorcentagem, PQuantidade, SpanGrafico } from "../CardsDashboard/CardStyles"
 
 interface CardProps {
-    produto: string
-    baixa: string
+    nome: string
     quantidade: number
     porcentagem: number
+    backgroundColor: string
+    colorTextCard: string
+    colorTextQuantity: string
+    havePercent: boolean
+    children?: React.ReactNode
+    alignItens?: string
+    detalhes?: boolean
 }
 
-const Card: React.FC<CardProps> = ({produto, baixa, quantidade, porcentagem}) => {
+const Card: React.FC<CardProps> = ({nome, quantidade, porcentagem, backgroundColor, colorTextQuantity, colorTextCard, children, havePercent, alignItens, detalhes}) => {
     return (
         <>
-        <DivCard>
-            <div>
-                <span style={{color: "#C5CFFF"}}>GRÁFICO</span>
-            </div>
-            <DivConteudo>
-                <PCard>Total {produto} em {baixa}</PCard>
-                <DivValores>
-                <PQuantidade>{quantidade}</PQuantidade>
-                <PPorcentagem positive={porcentagem >= 0} >{porcentagem}%</PPorcentagem>
+        <DivCard background={backgroundColor} alignItens={alignItens}>
+            <DivGrafico detalhes={detalhes}>
+                <SpanGrafico>{children}</SpanGrafico>
+            </DivGrafico>
+            <DivConteudo detalhes={detalhes} >
+                <PCard detalhes={detalhes} colorTextCard={colorTextCard}>{nome}</PCard>
+                <DivValores detalhes={detalhes} >
+                <PQuantidade detalhes={detalhes} colorTextQuantity={colorTextQuantity} >{quantidade}</PQuantidade>
+                {havePercent ?
+                <PPorcentagem  positive={porcentagem >= 0} >{porcentagem}%</PPorcentagem>
+                : null} 
                 </DivValores>
             </DivConteudo>
         </DivCard>

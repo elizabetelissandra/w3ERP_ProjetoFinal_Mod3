@@ -18,7 +18,7 @@ import {
 import calendario from "../../ui/img/calendario.png";
 import Card from "../../components/Cards/CardsDashboard/Card";
 import TablesComponent from "../../components/Tabelas/TablesComponent";
-import ButtonSwitch from "../../components/buttonsSwitch/button";
+
 import ImgProduto from "../../ui/img/ImgProdutos.png";
 import ImgClientes from "../../ui/img/ClientesDashboard.png";
 import { useEffect, useState } from "react";
@@ -28,6 +28,10 @@ import { IconButton } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate } from "react-router";
 import { TdId } from "../../components/Tabelas/TablesComponentStyles";
+import { ButtonOne, ButtonTwo } from "../../components/buttonsSwitch/buttonOne";
+import { colors, theme } from "../../context/themeContext";
+import { RadialBarDasboard } from "../../components/Graphic/Graphic";
+import { useMenu } from "../../context/menuContext";
 
 const Dashboard = () => {
   const [produtos, setProdutos] = useState<Product[]>([]);
@@ -35,8 +39,11 @@ const Dashboard = () => {
   const [dataTableProdutos, setDataTableProdutos] = useState<Product[]>([]);
   const [dataTableClientes, setDataTableClientes] = useState<Customer[]>([]);
   const [productsClients, setProductsClients] = useState<Customer[]>([]);
-  const [selectedButton, setSelectedButton] = useState("");
+  const [selectedButton, setSelectedButton] = useState<string | null>("");
+  const [activeButton, setActiveButton] = useState<string | null>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const {menu, toggleMenu} = useMenu()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,17 +61,26 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  const handleButtonClick = (buttonName: string) => {
+    if (activeButton === buttonName) {
+      setActiveButton(null);
+    } else {
+      setActiveButton(buttonName);
+      handleClickButtonSwitch(buttonName);
+    }
+  };
+
   const handleClickButtonSwitch = (buttonName: string) => {
     setSelectedButton(buttonName);
 
-    if (buttonName === "buttonAlto") {
+    if (selectedButton === "buttonAlto") {
       setDataTableProdutos(
         produtos
           .slice()
           .sort((a, b) => b.percentage - a.percentage)
           .slice(0, 11)
       );
-    } else if (buttonName === "buttonBaixo") {
+    } else if (selectedButton === "buttonBaixo") {
       setDataTableProdutos(
         produtos
           .slice()
@@ -93,11 +109,15 @@ const Dashboard = () => {
     navigate(`/Detalhamento/${type}/${row.id}`);
   };
 
+
+
+  
+
   return (
     <DivDashboard>
-      <Menu />
+      <Menu isOpen={menu} />
       <DivHeader>
-        <Header />
+        <Header onClick={toggleMenu} />
         <DivDashBoard>
           <DivTituloDashboard>
             <H3>Dashboard</H3>
@@ -108,8 +128,11 @@ const Dashboard = () => {
           </DivTituloDashboard>
           <DivCards>
             <Card
-              produto={"Produtos"}
-              baixa={"alta"}
+              nome={"Total Produtos em alta"}
+              backgroundColor={"#010d42"}
+              havePercent={true}
+              colorTextCard={"#C5CFFF"}
+              colorTextQuantity={"#fff"}
               quantidade={
                 produtos.filter((product) => product.percentage >= 0).length
               }
@@ -119,10 +142,18 @@ const Dashboard = () => {
                   .reduce((acc, product) => acc + product.percentage, 0)
                   .toFixed(2)
               )}
-            />
+            >
+              <RadialBarDasboard
+                percentageGraphic={Math.floor(Math.random() * 100)}
+              />
+            </Card>
             <Card
-              produto={"Produtos"}
-              baixa={"baixa"}
+              nome={"Total Produtos em baixa"}
+              backgroundColor={"#010d42"}
+              havePercent={true}
+              colorTextCard="#fff"
+              colorTextQuantity={theme.palette.primary.contrastText}
+              detalhes={false}
               quantidade={
                 produtos.filter((product) => product.percentage < 0).length
               }
@@ -132,10 +163,18 @@ const Dashboard = () => {
                   .reduce((acc, product) => acc + product.percentage, 0)
                   .toFixed(2)
               )}
-            />
+            >
+              <RadialBarDasboard
+                percentageGraphic={Math.floor(Math.random() * 100)}
+              />
+            </Card>
             <Card
-              produto={"Clientes"}
-              baixa={"alta"}
+              nome={"Total Clientes em alta"}
+              backgroundColor={"#010d42"}
+              havePercent={true}
+              // colorText={theme.palette.primary.contrastText}
+              colorTextCard="#fff"
+              colorTextQuantity={theme.palette.primary.contrastText}
               quantidade={
                 clientes.filter((client) => client.percentage >= 0).length
               }
@@ -145,10 +184,18 @@ const Dashboard = () => {
                   .reduce((acc, client) => acc + client.percentage, 0)
                   .toFixed(2)
               )}
-            />
+            >
+              <RadialBarDasboard
+                percentageGraphic={Math.floor(Math.random() * 100)}
+              />
+            </Card>
             <Card
-              produto={"Clientes"}
-              baixa={"baixa"}
+              nome={"Total Clientes em baixa"}
+              backgroundColor={"#010d42"}
+              havePercent={true}
+              // colorText={theme.palette.primary.contrastText}
+              colorTextCard={"#fff"}
+              colorTextQuantity={"#fff"}
               quantidade={
                 clientes.filter((client) => client.percentage < 0).length
               }
@@ -158,7 +205,11 @@ const Dashboard = () => {
                   .reduce((acc, client) => acc + client.percentage, 0)
                   .toFixed(2)
               )}
-            />
+            >
+              <RadialBarDasboard
+                percentageGraphic={Math.floor(Math.random() * 100)}
+              />
+            </Card>
           </DivCards>
         </DivDashBoard>
         <DivTabelas>
@@ -171,24 +222,21 @@ const Dashboard = () => {
                 <h3>Produtos</h3>
               </div>
               <DivButton>
-                <ButtonSwitch
-                  type="button"
-                  className="buttonAlto"
-                  onClick={() => handleClickButtonSwitch("buttonAlto")}
-                  buttonName="Em alta"
-                  selected={selectedButton === "buttonAlto"}
+                <ButtonOne
+                  isSelected={activeButton === "buttonAlto"}
+                  onClick={() => handleButtonClick("buttonAlto")}
                 />
-                <ButtonSwitch
-                  type="button"
-                  className="buttonBaixo"
-                  onClick={() => handleClickButtonSwitch("buttonBaixo")}
-                  buttonName="Em baixa"
-                  selected={selectedButton === "buttonBaixo"}
+                <ButtonTwo
+                  isSelected={activeButton === "buttonBaixo"}
+                  onClick={() => handleButtonClick("buttonBaixo")}
                 />
               </DivButton>
             </DivBotoes>
             {dataTableProdutos && (
-              <TablesComponent headers={["ID", "Produto", "Percentual", ""]}>
+              <TablesComponent
+                headers={["ID", "Produto", "Percentual", ""]}
+                width={"600px"}
+              >
                 {dataTableProdutos.map((produtos) => (
                   <tr>
                     <TdId>{produtos.id}</TdId>
@@ -214,25 +262,22 @@ const Dashboard = () => {
                 <ImgProdutos src={ImgClientes} alt="imagem de produtos" />
                 <h3>Clientes</h3>
               </div>
-              <div>
-                <ButtonSwitch
-                  type="button"
-                  className="botaoAlto"
-                  onClick={() => handleClickButtonSwitch("botaoAlto")}
-                  buttonName="Em alta"
-                  selected={selectedButton === "botaoAlto"}
+              <DivButton>
+                <ButtonOne
+                  isSelected={activeButton === "botaoAlto"}
+                  onClick={() => handleButtonClick("botaoAlto")}
                 />
-                <ButtonSwitch
-                  type="button"
-                  className="botaoBaixo"
-                  onClick={() => handleClickButtonSwitch("botaoBaixo")}
-                  buttonName="Em baixa"
-                  selected={selectedButton === "botaoBaixo"}
+                <ButtonTwo
+                  isSelected={activeButton === "botaoBaixo"}
+                  onClick={() => handleButtonClick("botaoBaixo")}
                 />
-              </div>
+              </DivButton>
             </DivBotoes>
             {dataTableClientes && (
-              <TablesComponent headers={["ID", "Produto", "Percentual", ""]}>
+              <TablesComponent
+                width={"600px"}
+                headers={["ID", "Produto", "Percentual", ""]}
+              >
                 {dataTableClientes.map((produtos) => (
                   <tr>
                     <TdId>{produtos.id}</TdId>
