@@ -28,6 +28,7 @@ import { theme } from "../../context/themeContext";
 import ImgProdutos from "../../ui/img/ImgProdutos.png";
 import HistoryIcon from "@mui/icons-material/History";
 import { Link } from "react-router-dom";
+import { useMenu } from "../../context/menuContext";
 
 export interface ProductType {
   id: string;
@@ -41,12 +42,12 @@ const Predicao = () => {
   const [data, setData] = useState<Customer | null>();
   const [dataProdutos, setDataProdutos] = useState<Product[]>([]);
   const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const { menu, toggleMenu } = useMenu();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axiosClientes.get(`/${id}`);
-      console.log("Data for ID:", response.data);
-      console.log("resposta da api: ", response.data);
       setData(response.data);
       setDataProdutos(response.data.products);
     };
@@ -70,15 +71,19 @@ const Predicao = () => {
   };
 
   const produtosAcabando = dataProdutos.filter(
-    (product) => product.amount <= 50
+    (product) => product.amount <= 10
+  );
+
+  const historicoProdutosDecrescente = dataProdutos.sort(
+    (a, b) => new Date(b.lastPurchase) - new Date(a.lastPurchase)
   );
 
   return (
     <>
       <DivDashboard>
-        <Menu />
+        <Menu isOpen={menu} />
         <DivHeader>
-          <Header />
+          <Header onClick={toggleMenu} />
           <DivPredicao>
             <Link to="/Predicoes">
               <IconButton>
@@ -125,9 +130,8 @@ const Predicao = () => {
                     "Última Compra",
                     " Qtd.",
                     "Dar Baixa",
-                  ]}
-                >
-                  {dataProdutos.map((produtos) => (
+                  ]} width="600px"  >
+                  {historicoProdutosDecrescente.map((produtos) => (
                     <tr>
                       <TdId>{produtos.id}</TdId>
                       <td>{produtos.name}</td>
@@ -168,7 +172,7 @@ const Predicao = () => {
                     "Última Compra",
                     " Qtd.",
                     "Dar Baixa",
-                  ]}
+                  ]}  width="600px"
                 >
                   {produtosAcabando.map((produtos) => (
                     <tr>
