@@ -37,6 +37,7 @@ export const DivAroundSearchProdutos = styled.div`
     border-radius: 10px;
     padding: 20px;
     gap:20px;
+    background: ${theme.palette.background.default};
 `
 
 export const H3 = styled.h3`

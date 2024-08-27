@@ -10,6 +10,7 @@ import { Customer, Product } from "../../types/DashboardTypes";
 import { useNavigate } from "react-router";
 import { ProductType } from "../../pages/Predicao/Predicao";
 import React, { ReactNode } from "react";
+import { TableBodyStyled } from "./TablesComponentStyles";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,10 +62,10 @@ function TablesComponent({ headers, children, width }: TablesComponentProps) {
             )}
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBodyStyled >
           {children}
             
-        </TableBody>
+        </TableBodyStyled>
       </Table>
     </TableContainer>
   );

@@ -23,6 +23,7 @@ export const DivCardsPredicao = styled.div`
     border-radius: 10px;
     overflow-y: scroll;
     height: 100vh;
+    background: ${theme.palette.background.default};
 `
 
 export const H3 = styled.h3`
@@ -55,6 +56,7 @@ export const DivAroundSearch = styled.div`
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     padding: 20px;
+    background: ${theme.palette.background.default};
 `
 
 export const DivInputSearch = styled.div`
