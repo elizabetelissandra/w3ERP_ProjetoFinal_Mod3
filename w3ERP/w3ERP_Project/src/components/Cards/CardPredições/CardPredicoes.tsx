@@ -5,6 +5,7 @@ import { DivCard, DivInfos, PStatus } from "./CardPredicoesStyles";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from "react-router-dom";
 import { Stack, IconButton } from "@mui/material";
+import { theme } from "../../../context/themeContext";
 
 interface CardPredicaoProps {
   NomeCliente: string;
@@ -27,7 +28,7 @@ const CardPredicao: React.FC<CardPredicaoProps> = ({
         </div>
         <div>
           <h3>{NomeCliente}</h3>
-          <PStatus>{statusCliente}</PStatus>
+          <PStatus theme={theme}>{statusCliente}</PStatus>
         </div>
         <Link to={`/Predicao/${id}`}>
           <IconButton aria-label="menu">

@@ -1,4 +1,4 @@
-import { RadialBarDasboard } from "../../Graphic/Graphic"
+import { theme } from "../../../context/themeContext"
 import  {DivCard, DivConteudo, DivGrafico, DivValores, PCard, PPorcentagem, PQuantidade, SpanGrafico } from "../CardsDashboard/CardStyles"
 
 interface CardProps {
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({nome, quantidade, porcentagem, backgroundCol
                 <DivValores detalhes={detalhes} >
                 <PQuantidade detalhes={detalhes} colorTextQuantity={colorTextQuantity} >{quantidade}</PQuantidade>
                 {havePercent ?
-                <PPorcentagem  positive={porcentagem >= 0} >{porcentagem}%</PPorcentagem>
+                <PPorcentagem theme={theme} positive={porcentagem >= 0} >{porcentagem}%</PPorcentagem>
                 : null} 
                 </DivValores>
             </DivConteudo>

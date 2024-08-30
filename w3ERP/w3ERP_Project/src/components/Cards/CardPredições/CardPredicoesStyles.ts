@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../context/themeContext";
+
 
 export const DivCard = styled.div`
     display: flex;
@@ -22,5 +22,5 @@ export const DivInfos = styled.div`
 `
 
 export const PStatus = styled.p`
-    color: ${theme.palette.success.main};
+    color: ${ props => props.theme.palette.success.main};
 `

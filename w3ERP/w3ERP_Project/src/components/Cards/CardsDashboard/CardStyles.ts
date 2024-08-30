@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../../context/themeContext";
 
 interface CardStyledProps {
     positive?: boolean
@@ -71,8 +70,8 @@ export const PQuantidade = styled.p<CardStyledProps>`
 `
 
 export const PPorcentagem = styled.p<CardStyledProps>`
-    color: ${theme.palette.primary.contrastText};
-    background: ${props => props.positive ? theme.palette.success.main : theme.palette.error.main};
+    color: ${props => props.theme.palette.primary.contrastText};
+    background: ${props => props.positive ? props.theme.palette.success.main : props.theme.palette.error.main};
     font-size: 14px;
     padding: 5px;
     border-radius: 100px;
