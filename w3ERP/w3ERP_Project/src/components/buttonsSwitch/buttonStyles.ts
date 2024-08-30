@@ -26,6 +26,7 @@ export const ButtonOneStyled = styled.button<ButtonStyledProps>`
     border-radius: 10px;
     border: none;
     width: 100px;
+    transition: 0.5s;
 `
 
 export const ButtonTwoStyled = styled.button<ButtonStyledProps>`
@@ -35,4 +36,5 @@ export const ButtonTwoStyled = styled.button<ButtonStyledProps>`
     border-radius: 10px;
     border: none;
     width: 100px;
+    transition: 0.5s;
 `

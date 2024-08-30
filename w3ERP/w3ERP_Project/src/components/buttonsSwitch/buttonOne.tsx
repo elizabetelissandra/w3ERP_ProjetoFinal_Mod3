@@ -19,13 +19,4 @@ export const ButtonOne = ({ isSelected, onClick }: ButtonsProps) => {
   );
 };
 
-export const ButtonTwo = ({ isSelected, onClick }: ButtonsProps) => {
-  return (
-    <>
-      <ButtonTwoStyled isSelected={isSelected} onClick={onClick} >
-        Em Baixa
-      </ButtonTwoStyled>
-    </>
-  );
-};
 
