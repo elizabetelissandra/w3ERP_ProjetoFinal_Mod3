@@ -15,7 +15,7 @@ import {
 import ImgDashBoard from "../../ui/img/ImgDashboard.png";
 import ImgPredicoes from "../../ui/img/ImgPredicoes.png";
 import ImgProdutos from "../../ui/img/ImgProdutos.png";
-
+import { theme } from "../../styles/themeStyles";
 import W3reduzida from "../../ui/img/w3reduzida.png";
 import React from "react";
 
@@ -27,26 +27,28 @@ const Menu: React.FC<MenuProps> = ({isOpen}) => {
   return (
     <>
       {isOpen ? (
-        <AsideStyles isOpen={isOpen}>
+        
+        <AsideStyles theme={theme} isOpen={isOpen}>
+          <Nav>
           <ImgLogo src={logoW3} alt="logo da W3" />
 
-          <Nav>
+          
             <LinkSttyled to="/Dashboard">
-              <DivIcones>
+              <DivIcones theme={theme}>
                 <ImgIcones src={ImgDashBoard} alt="Imagem de Dashboard" />
-                <Span>DashBoard</Span>
+                <Span theme={theme}>DashBoard</Span>
               </DivIcones>
             </LinkSttyled>
             <LinkSttyled to="/Predicoes">
-              <DivIcones>
+              <DivIcones theme={theme}>
                 <ImgIcones src={ImgPredicoes} alt="Imagem de Dashboard" />
-                <Span>Predições</Span>
+                <Span theme={theme}>Predições</Span>
               </DivIcones>
             </LinkSttyled>
             <LinkSttyled to="/Produtos">
-              <DivIcones>
+              <DivIcones theme={theme}>
                 <ImgIcones src={ImgProdutos} alt="Imagem de Dashboard" />
-                <Span>Produtos</Span>
+                <Span theme={theme}>Produtos</Span>
               </DivIcones>
             </LinkSttyled>
           </Nav>
@@ -55,21 +57,22 @@ const Menu: React.FC<MenuProps> = ({isOpen}) => {
           </div>
         </AsideStyles>
       ) : (
-        <AsideStyles isOpen={isOpen}>
-          <ImgLogoReduzida src={W3reduzida} alt="logo da W3" />
+        <AsideStyles theme={theme} isOpen={isOpen}>
           <Nav>
+          <ImgLogoReduzida src={W3reduzida} alt="logo da W3" />
+          
             <LinkSttyled to="/Dashboard">
-              <DivIcones>
+              <DivIcones theme={theme}>
                 <ImgIcones src={ImgDashBoard} alt="Imagem de Dashboard" />
               </DivIcones>
             </LinkSttyled>
             <LinkSttyled to="/Predicoes">
-              <DivIcones>
+              <DivIcones theme={theme}>
                 <ImgIcones src={ImgPredicoes} alt="Imagem de Dashboard" />
               </DivIcones>
             </LinkSttyled>
             <LinkSttyled to="/Produtos">
-              <DivIcones>
+              <DivIcones theme={theme}>
                 <ImgIcones src={ImgProdutos} alt="Imagem de Dashboard" />
               </DivIcones>
             </LinkSttyled>

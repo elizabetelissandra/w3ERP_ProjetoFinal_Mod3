@@ -8,6 +8,7 @@ import {
   DivDashBoard,
   DivDashboard,
   DivHeader,
+  DivImgName,
   DivTabela,
   DivTabelas,
   DivTituloDashboard,
@@ -16,7 +17,6 @@ import {
   SpanMes,
 } from "./DashboardStyles";
 import calendario from "../../ui/img/calendario.png";
-import Card from "../../components/Cards/CardsDashboard/Card";
 import TablesComponent from "../../components/Tabelas/TablesComponent";
 
 import ImgProduto from "../../ui/img/ImgProdutos.png";
@@ -28,10 +28,11 @@ import { IconButton } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate } from "react-router";
 import { TdId } from "../../components/Tabelas/TablesComponentStyles";
-import { ButtonOne, ButtonTwo } from "../../components/buttonsSwitch/buttonOne";
-import { colors, theme } from "../../context/themeContext";
-import { RadialBarDasboard } from "../../components/Graphic/Graphic";
+import { ButtonOne } from "../../components/buttonsSwitch/buttonOne";
+import { ButtonTwo } from "../../components/buttonsSwitch/buttonTwo";
+import { theme } from "../../styles/themeStyles";
 import { useMenu } from "../../context/menuContext";
+import renderCardDashboard from "../../utils/dashboard/CardDashboardRender";
 
 const Dashboard = () => {
   const [produtos, setProdutos] = useState<Product[]>([]);
@@ -41,9 +42,8 @@ const Dashboard = () => {
   const [productsClients, setProductsClients] = useState<Customer[]>([]);
   const [selectedButton, setSelectedButton] = useState<string | null>("");
   const [activeButton, setActiveButton] = useState<string | null>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const {menu, toggleMenu} = useMenu()
+  const { menu, toggleMenu } = useMenu();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,16 +71,15 @@ const Dashboard = () => {
   };
 
   const handleClickButtonSwitch = (buttonName: string) => {
-    setSelectedButton(buttonName);
 
-    if (selectedButton === "buttonAlto") {
+    if (buttonName === "buttonAlto") {
       setDataTableProdutos(
         produtos
           .slice()
           .sort((a, b) => b.percentage - a.percentage)
           .slice(0, 11)
       );
-    } else if (selectedButton === "buttonBaixo") {
+    } else if (buttonName === "buttonBaixo") {
       setDataTableProdutos(
         produtos
           .slice()
@@ -109,10 +108,6 @@ const Dashboard = () => {
     navigate(`/Detalhamento/${type}/${row.id}`);
   };
 
-
-
-  
-
   return (
     <DivDashboard>
       <Menu isOpen={menu} />
@@ -127,100 +122,79 @@ const Dashboard = () => {
             </CalendarioSpan>
           </DivTituloDashboard>
           <DivCards>
-            <Card
-              nome={"Total Produtos em alta"}
-              backgroundColor={"#010d42"}
-              havePercent={true}
-              colorTextCard={"#C5CFFF"}
-              colorTextQuantity={"#fff"}
-              quantidade={
-                produtos.filter((product) => product.percentage >= 0).length
-              }
-              porcentagem={Number(
+            {renderCardDashboard(
+              "Total Produtos em alta",
+              "#010d42",
+              true,
+              "#C5CFFF",
+              "#fff",
+              produtos.filter((produto) => produto.percentage >= 0).length,
+              Number(
                 produtos
-                  .filter((product) => product.percentage >= 0)
-                  .reduce((acc, product) => acc + product.percentage, 0)
-                  .toFixed(2)
-              )}
-            >
-              <RadialBarDasboard
-                percentageGraphic={Math.floor(Math.random() * 100)}
-              />
-            </Card>
-            <Card
-              nome={"Total Produtos em baixa"}
-              backgroundColor={"#010d42"}
-              havePercent={true}
-              colorTextCard="#fff"
-              colorTextQuantity={theme.palette.primary.contrastText}
-              detalhes={false}
-              quantidade={
-                produtos.filter((product) => product.percentage < 0).length
-              }
-              porcentagem={Number(
+                  .filter((produto) => produto.percentage >= 0)
+                  .reduce(
+                    (acumulador, produto) => acumulador + produto.percentage,
+                    0
+                  )
+              )
+            )}
+            {renderCardDashboard(
+              "Total Produtos em baixa",
+              "#010d42",
+              true,
+              "#C5CFFF",
+              "#fff",
+              produtos.filter((produto) => produto.percentage < 0).length,
+              Number(
                 produtos
-                  .filter((product) => product.percentage < 0)
-                  .reduce((acc, product) => acc + product.percentage, 0)
-                  .toFixed(2)
-              )}
-            >
-              <RadialBarDasboard
-                percentageGraphic={Math.floor(Math.random() * 100)}
-              />
-            </Card>
-            <Card
-              nome={"Total Clientes em alta"}
-              backgroundColor={"#010d42"}
-              havePercent={true}
-              // colorText={theme.palette.primary.contrastText}
-              colorTextCard="#fff"
-              colorTextQuantity={theme.palette.primary.contrastText}
-              quantidade={
-                clientes.filter((client) => client.percentage >= 0).length
-              }
-              porcentagem={Number(
+                  .filter((produto) => produto.percentage < 0)
+                  .reduce(
+                    (acumulador, produto) => acumulador + produto.percentage,
+                    0
+                  )
+              )
+            )}
+            {renderCardDashboard(
+              "Total Clientes em alta",
+              "#010d42",
+              true,
+              "#C5CFFF",
+              "#fff",
+              clientes.filter((cliente) => cliente.percentage >= 0).length,
+              Number(
                 clientes
-                  .filter((client) => client.percentage > 0)
-                  .reduce((acc, client) => acc + client.percentage, 0)
-                  .toFixed(2)
-              )}
-            >
-              <RadialBarDasboard
-                percentageGraphic={Math.floor(Math.random() * 100)}
-              />
-            </Card>
-            <Card
-              nome={"Total Clientes em baixa"}
-              backgroundColor={"#010d42"}
-              havePercent={true}
-              // colorText={theme.palette.primary.contrastText}
-              colorTextCard={"#fff"}
-              colorTextQuantity={"#fff"}
-              quantidade={
-                clientes.filter((client) => client.percentage < 0).length
-              }
-              porcentagem={Number(
+                  .filter((cliente) => cliente.percentage >= 0)
+                  .reduce(
+                    (acumulador, cliente) => acumulador + cliente.percentage,
+                    0
+                  )
+              )
+            )}
+              {renderCardDashboard(
+              "Total Clientes em baixa",
+              "#010d42",
+              true,
+              "#C5CFFF",
+              "#fff",
+              clientes.filter((cliente) => cliente.percentage < 0).length,
+              Number(
                 clientes
-                  .filter((client) => client.percentage < 0)
-                  .reduce((acc, client) => acc + client.percentage, 0)
-                  .toFixed(2)
-              )}
-            >
-              <RadialBarDasboard
-                percentageGraphic={Math.floor(Math.random() * 100)}
-              />
-            </Card>
+                  .filter((cliente) => cliente.percentage < 0)
+                  .reduce(
+                    (acumulador, cliente) => acumulador + cliente.percentage,
+                    0
+                  )
+              )
+            )}
           </DivCards>
         </DivDashBoard>
         <DivTabelas>
           <DivTabela>
             <DivBotoes>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "10px" }}
-              >
+              <DivImgName>
                 <ImgProdutos src={ImgProduto} alt="imagem de produtos" />
                 <h3>Produtos</h3>
-              </div>
+              </DivImgName>
               <DivButton>
                 <ButtonOne
                   isSelected={activeButton === "buttonAlto"}
@@ -236,19 +210,22 @@ const Dashboard = () => {
               <TablesComponent
                 headers={["ID", "Produto", "Percentual", ""]}
                 width={"600px"}
+                backgroundBody={theme.palette.primary.contrastText}
+                backgroundColor={theme.palette.primary.main}
+                colorHeader={theme.palette.primary.contrastText}
               >
                 {dataTableProdutos.map((produtos) => (
                   <tr>
                     <TdId>{produtos.id}</TdId>
-                    <td>{produtos.name}</td>
-                    <td>{(produtos.percentage * 100).toFixed(2)}%</td>
-                    <td>
+                    <TdId>{produtos.name}</TdId>
+                    <TdId>{(produtos.percentage * 100).toFixed(2)}%</TdId>
+                    <TdId>
                       <IconButton>
                         <KeyboardArrowRightIcon
                           onClick={() => handleClickRow(produtos)}
                         />
                       </IconButton>
-                    </td>
+                    </TdId>
                   </tr>
                 ))}
               </TablesComponent>
@@ -256,12 +233,10 @@ const Dashboard = () => {
           </DivTabela>
           <DivTabela>
             <DivBotoes>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "10px" }}
-              >
+              <DivImgName>
                 <ImgProdutos src={ImgClientes} alt="imagem de produtos" />
                 <h3>Clientes</h3>
-              </div>
+              </DivImgName>
               <DivButton>
                 <ButtonOne
                   isSelected={activeButton === "botaoAlto"}
@@ -277,19 +252,22 @@ const Dashboard = () => {
               <TablesComponent
                 width={"600px"}
                 headers={["ID", "Produto", "Percentual", ""]}
+                backgroundColor={theme.palette.primary.main}
+                backgroundBody={theme.palette.primary.contrastText}
+                colorHeader={theme.palette.primary.contrastText}
               >
                 {dataTableClientes.map((produtos) => (
                   <tr>
                     <TdId>{produtos.id}</TdId>
-                    <td>{produtos.name}</td>
-                    <td>{(produtos.percentage * 100).toFixed(2)}%</td>
-                    <td>
+                    <TdId>{produtos.name}</TdId>
+                    <TdId>{(produtos.percentage * 100).toFixed(2)}%</TdId>
+                    <TdId>
                       <IconButton>
                         <KeyboardArrowRightIcon
                           onClick={() => handleClickRow(produtos)}
                         />
                       </IconButton>
-                    </td>
+                    </TdId>
                   </tr>
                 ))}
               </TablesComponent>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../context/themeContext";
+import { theme } from "../../styles/themeStyles";
 
 export const DivDashboard = styled.div`
     display: flex;
@@ -94,6 +94,12 @@ export const DivBotoes = styled.div`
     width: 100%;
     margin: 20px;
 `
+export const DivImgName = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+`
 
 export const ImgProdutos = styled.img`
     width: 30px;
@@ -106,4 +112,4 @@ export const DivButton = styled.div`
     border-radius: 10px;
     padding: 10px;
     gap: 10px;
-    `
+`

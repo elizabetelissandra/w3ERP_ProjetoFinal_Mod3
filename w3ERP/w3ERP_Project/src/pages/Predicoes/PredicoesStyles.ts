@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../context/themeContext";
+
 
 
 
@@ -19,15 +19,14 @@ export const DivCardsPredicao = styled.div`
     width: 90%;
     margin-left: 20px;
     padding: 20px;
-    box-shadow: -2px -1px 40px -10px rgba(0,0,0,0.75);
     border-radius: 10px;
     overflow-y: scroll;
     height: 100vh;
-    background: ${theme.palette.background.default};
+    background: ${({ theme }) => theme.palette.background.paper};
 `
 
 export const H3 = styled.h3`
-    color: ${theme.palette.common.black};
+    color: ${({ theme }) => theme.palette.common.black};
     font-size: 32px;
     margin-left: 40px;
 `
@@ -47,16 +46,17 @@ export const InputSearch = styled.input`
     outline: none;
     border: none;
     font-size: 16px;
+    background: ${({ theme }) => theme.palette.background.default};
 `
 
 export const DivAroundSearch = styled.div`
-    width: 90%;
+    width: 93%;
     gap: 20px;
     margin-left: 40px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     padding: 20px;
-    background: ${theme.palette.background.default};
+    background: ${({ theme }) => theme.palette.background.default};
 `
 
 export const DivInputSearch = styled.div`
@@ -66,6 +66,7 @@ export const DivInputSearch = styled.div`
     width: 400px;
     gap: 10px;
     border-radius: 10px;
-    border: 1px solid ${theme.palette.primary.main};
+    border: 1px solid ${({ theme }) => theme.palette.primary.main};
     padding: 10px;
 `
+

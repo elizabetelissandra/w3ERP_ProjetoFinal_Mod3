@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface CardStyledProps {
+interface CardStyled {
     positive?: boolean
     background?: string
     alignItens?: string
@@ -9,7 +9,7 @@ interface CardStyledProps {
     colorTextQuantity?: string
 }
 
-export const DivCard = styled.div<CardStyledProps>`
+export const DivCard = styled.div<CardStyled>`
     display: flex;
     flex-direction:column;
     flex-wrap: wrap;
@@ -18,60 +18,60 @@ export const DivCard = styled.div<CardStyledProps>`
     justify-content: space-between;
     width: 300px;
     height: 124px;
-    box-shadow: ${props => props.detalhes ? "0px 0px 37px -10px rgba(0,0,0,0.75)" : "none"};
-    background: ${props => props.background};
+    box-shadow: ${({detalhes}) => detalhes ? "0px 0px 37px -10px rgba(0,0,0,0.75)" : "none"};
+    background: ${({background}) => background};
     border-radius: 30px;
-    padding: ${props => props.detalhes ? "0 0 10px 0" : "0 15px 20px 0"};
+    padding: ${({detalhes}) => detalhes ? "0 0 10px 0" : "0 15px 20px 0"};
     
     
 `
 
-export const DivConteudo = styled.div<CardStyledProps>`
+export const DivConteudo = styled.div<CardStyled>`
     display: flex;
     flex-direction: column;
-    align-items: ${props => props.alignItens};
+    align-items: ${({alignItens}) => alignItens};
     justify-content: center;
     border-radius: 10px;
-    width: ${props => props.detalhes ? "80%" : "auto"};
+    width: ${({detalhes}) => detalhes ? "80%" : "auto"};
     
 `
 
-export const DivGrafico = styled.div<CardStyledProps>`
-    display: ${props => props.detalhes ? "none" : "flex"};
+export const DivGrafico = styled.div<CardStyled>`
+    display: ${({detalhes}) => detalhes ? "none" : "flex"};
     align-items: center;
     justify-content: center;
-    margin: ${props => props.detalhes ? "0 0 0 0" : "0 0 0 0"}
+    margin: ${({detalhes}) => detalhes ? "0 0 0 0" : "0 0 0 0"}
 `
 
-export const SpanGrafico = styled.span<CardStyledProps>`
+export const SpanGrafico = styled.span<CardStyled>`
     display: flex;
     align-items: center;
     margin: 30px 10px 0 0;
 `
-export const DivValores = styled.div<CardStyledProps>`
+export const DivValores = styled.div<CardStyled>`
     display: flex;
     align-items: center;
     gap: 40px;
-    margin: ${props => props.detalhes ? "0" : "0 0 0 0"};
-    height: ${props => props.detalhes ? "60px" : "180px"};
+    margin: ${({detalhes}) => detalhes ? "0" : "0 0 0 0"};
+    height: ${({detalhes}) => detalhes ? "60px" : "180px"};
     
 `
 
-export const PCard = styled.p<CardStyledProps>`
-    color:  ${props => props.colorTextCard};
-    font-size: ${props => props.detalhes ? "22px" : "14px"};
-    margin: ${props => props.detalhes ? "22px 0" : "10px 0 0 0"};
+export const PCard = styled.p<CardStyled>`
+    color:  ${({colorTextCard}) => colorTextCard};
+    font-size: ${({detalhes}) => detalhes ? "22px" : "14px"};
+    margin: ${({detalhes}) => detalhes ? "22px 0" : "10px 0 0 0"};
 `
 
-export const PQuantidade = styled.p<CardStyledProps>`
-    color: ${props => props.colorTextQuantity};
+export const PQuantidade = styled.p<CardStyled>`
+    color: ${({colorTextQuantity}) => colorTextQuantity};
     font-size: 32px;
     font-weight: 700;
 `
 
-export const PPorcentagem = styled.p<CardStyledProps>`
-    color: ${props => props.theme.palette.primary.contrastText};
-    background: ${props => props.positive ? props.theme.palette.success.main : props.theme.palette.error.main};
+export const PPorcentagem = styled.p<CardStyled>`
+    color: ${({theme}) => theme.palette.primary.contrastText};
+    background: ${({positive, theme}) => positive ? theme.palette.success.main : theme.palette.error.main};
     font-size: 14px;
     padding: 5px;
     border-radius: 100px;

@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { theme } from "../../styles/themeStyles";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 
 export const MainLogin = styled.main`
@@ -7,6 +10,7 @@ export const MainLogin = styled.main`
     align-items: center;
     justify-content: center;
     font-family: 'Sora', sans-serif;
+    background: #ffffff;
 `
 export const SectionLogin1 = styled.section`
     display: flex;
@@ -15,12 +19,25 @@ export const SectionLogin1 = styled.section`
     width: 50%;
     height: 100%;
 `
+export const BoxStyled = styled(Box)`
+display: flex;
+flex-direction: column;
+flexWrap: wrap;
+width: 400px;
+`
 
 export const SectionLogin2 = styled.section`
     display: flex;
     justify-content: flex-end;
     width: 50%;
     height: 100%;
+`
+
+export const TextFieldStyled = styled(TextField)`
+width: 400px; 
+height: 67px; 
+
+
 `
 
 export const DivSpanLogin = styled.div`

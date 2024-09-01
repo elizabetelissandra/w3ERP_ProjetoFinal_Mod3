@@ -15,8 +15,8 @@ import {
 } from "./DetalhamentoStyles";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CardDetalhamento from "../../components/Cards/CardsDetalhamento/CardsDetalhamento";
-import { theme } from "../../context/themeContext";
+
+import { theme } from "../../styles/themeStyles";
 import { DivTabela, DivTabelas } from "../Dashboard/DashboardStyles";
 import TablesComponent from "../../components/Tabelas/TablesComponent";
 import { useEffect, useState } from "react";
@@ -33,7 +33,6 @@ const Detalhamento = () => {
   const { type, id } = useParams();
   const [data, setData] = useState<Product | Customer | null>(null);
   const [dataTable, setDataTable] = useState<Product[] | Customer[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
   const tableName = type === "products" ? "Clientes" : "Produtos";
   const { menu, toggleMenu } = useMenu();
   useEffect(() => {
@@ -92,7 +91,7 @@ const Detalhamento = () => {
           <span>Detalhamento</span>
         </DivBackToDashboard>
         <DivH3>
-          <H3>
+          <H3 theme={theme}>
             {data === null
               ? "Carregando..."
               : filteredArray.map((item) => item.name)}
@@ -101,13 +100,6 @@ const Detalhamento = () => {
         <DivCards>
           {type && (
             <>
-              {/* <CardDetalhamento
-                infoName={"Média de 120 dias"}
-                infoValue={valorTotal()}
-                colorText={theme.palette.primary.contrastText}
-                backgroundColor={theme.palette.primary.main}
-                colorSpan={theme.palette.primary.contrastText}
-              /> */}
               <Card
                 nome={"Média de 120 dias"}
                 quantidade={valorTotal()}
@@ -152,76 +144,58 @@ const Detalhamento = () => {
                 alignItens="start"
                 detalhes={true}
               />
-
-              {/* <CardDetalhamento
-                infoName={"Últimos 30 dias"}
-                infoValue={valorTotal()}
-                colorText={theme.palette.common.black}
-                backgroundColor={theme.palette.primary.contrastText}
-                colorSpan={theme.palette.primary.main}
-              /> */}
-              {/* <CardDetalhamento
-                infoName={"Últimos 60 dias"}
-                infoValue={valorTotal()}
-                colorText={theme.palette.common.black}
-                backgroundColor={theme.palette.primary.contrastText}
-                colorSpan={theme.palette.primary.main}
-              /> */}
-              {/* <CardDetalhamento
-                infoName={"Últimos 90 dias"}
-                infoValue={valorTotal()}
-                colorText={theme.palette.common.black}
-                backgroundColor={theme.palette.primary.contrastText}
-                colorSpan={theme.palette.primary.main}
-              /> */}
             </>
           )}
         </DivCards>
         <DivTabelas>
           <DivTabela>
             <DivBotoes>
-              <ImgSetaCaindo src={SetaCaindo} alt="imagem de produtos" />
+              <ImgSetaCaindo theme={theme} src={SetaCaindo} alt="imagem de produtos" />
               <h3>
                 {type === "products"
-                  ? "Clientes em Baixa"
-                  : "Produtos em Baixa"}
+                  ? `${tableName} em Baixa`
+                  : `${tableName} em Baixa`}
               </h3>
             </DivBotoes>
             <TablesComponent
-              headers={["ID", tableName, "Percentual", ""]}
-              width={"500px"}
+              headers={["ID", tableName, "Percentual", "QTD"]}
+              width={"600px"} backgroundColor={theme.palette.primary.main}
+              colorHeader={theme.palette.primary.contrastText}
+              backgroundBody={theme.palette.primary.contrastText}
             >
               {lowPercentage(dataTable)
                 .slice(0, 10)
                 .map((item: any) => (
                   <TrTable>
                     <TdId>{item.id}</TdId>
-                    <td>{item.name}</td>
-                    <td>{(item.percentage * 100).toFixed(2)}%</td>
-                    <td></td>
+                    <TdId>{item.name}</TdId>
+                    <TdId>{(item.percentage * 100).toFixed(2)}%</TdId>
+                    <TdId>{type === "products" ? item.products[0].amount : item.amount}</TdId>
                   </TrTable>
                 ))}
             </TablesComponent>
           </DivTabela>
           <DivTabela>
             <DivBotoes>
-              <ImgSetaSubindo src={SetaSubindo} alt="imagem de produtos" />
+              <ImgSetaSubindo theme={theme} src={SetaSubindo} alt="imagem de produtos" />
               <h3>
-                {type === "products" ? "Clientes em Alta" : "Produtos em Alta"}
+                {type === "products" ? `${tableName} em Alta` : `${tableName} em Alta`}
               </h3>
             </DivBotoes>
             <TablesComponent
-              headers={["ID", tableName, "Percentual", ""]}
-              width={"500px"}
+              headers={["ID", tableName, "Percentual", 'QTD']}
+              width={"600px"} backgroundColor={theme.palette.primary.main}
+              colorHeader={theme.palette.primary.contrastText}
+              backgroundBody={theme.palette.primary.contrastText}
             >
               {highPercentage(dataTable)
                 .slice(0, 10)
                 .map((item: any) => (
                   <TrTable>
                     <TdId>{item.id}</TdId>
-                    <td>{item.name}</td>
-                    <td>{(item.percentage * 100).toFixed(2)}%</td>
-                    <td></td>
+                    <TdId>{item.name}</TdId>
+                    <TdId>{(item.percentage * 100).toFixed(2)}%</TdId>
+                    <TdId>{type === "products" ? item.products[0].amount : item.amount}</TdId>
                   </TrTable>
                 ))}
             </TablesComponent>

@@ -16,14 +16,14 @@ export const CardLogoutStyled = styled.div`
   @media (max-width: 2560px) {
     top: 0;
     right: 0;
-    bottom: 600px;
+    bottom: 630px;
     left: 1100px;
   }
 
   @media (max-width: 1920px) {
     top: 0;
     right: 0;
-    bottom: 600px;
+    bottom: 650px;
     left: 780px;
   }
 
@@ -40,24 +40,11 @@ export const CardLogoutStyled = styled.div`
     bottom: 450px;
   }
 
-    p {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: ${props => props.theme.palette.text.primary};
-        font-size: 20px; 
-        &:hover {
-            cursor: pointer;
-            color: ${props => props.theme.palette.primary.main};
-            transition: 0.5s;
-        }
-    }
-
     hr {
         width: 100%;
         height: 1px;
         border: none;
-        background-color: ${props => props.theme.palette.text.primary};
+        background-color: ${({theme}) => theme.palette.text.primary};
     }
 
     
@@ -67,7 +54,7 @@ export const CardLogoutStyled = styled.div`
 
 
 export const CardLogoutContent = styled.div`
-background-color: ${props => props.theme.palette.background.paper};
+background-color: ${({theme}) => theme.palette.background.paper};
   padding: 20px;
   border-radius: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -76,8 +63,8 @@ export const ButtonStyled = styled.button`
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: ${props => props.theme.palette.background.paper};
-  color: ${props => props.theme.palette.primary.dark};
+  background-color: ${({theme}) => theme.palette.background.paper};
+  color: ${({theme}) => theme.palette.primary.dark};
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -86,7 +73,7 @@ export const ButtonStyled = styled.button`
   font-weight: bold;
   text-align: center;
   &:hover {
-    background-color: ${props => props.theme.palette.background.default};
+    background-color: ${({theme}) => theme.palette.background.default};
     transition: 0.5s;
   }
 `
@@ -95,8 +82,8 @@ export const LinkStyled = styled(Link)`
 display: flex;
   align-items: center;
   gap: 10px;
-  background-color: ${props => props.theme.palette.background.paper};
-  color: ${props => props.theme.palette.primary.dark};
+  background-color: ${({theme}) => theme.palette.background.paper};
+  color: ${({theme}) => theme.palette.primary.dark};
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -104,10 +91,10 @@ display: flex;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  text-decoration: none;
   &:hover {
-    background-color: ${props => props.theme.palette.background.default};
+    background-color: ${({theme}) => theme.palette.background.default};
     transition: 0.5s;
   }
 `
 
-// Media queries para diferentes larguras de tela

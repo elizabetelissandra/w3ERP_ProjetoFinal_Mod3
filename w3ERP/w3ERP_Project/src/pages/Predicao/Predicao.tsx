@@ -17,32 +17,25 @@ import {
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { axiosClientes } from "../../api/axiosConfig";
-import { Customer, Product, ProductPredicao } from "../../types/DashboardTypes";
+import { Customer, Product } from "../../types/DashboardTypes";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import Menu from "../../components/MenuLateral/Menu";
 import TablesComponent from "../../components/Tabelas/TablesComponent";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { TdId } from "../../components/Tabelas/TablesComponentStyles";
-import { theme } from "../../context/themeContext";
+import { theme } from "../../styles/themeStyles";
 import ImgProdutos from "../../ui/img/ImgProdutos.png";
 import HistoryIcon from "@mui/icons-material/History";
 import { Link } from "react-router-dom";
 import { useMenu } from "../../context/menuContext";
-
-export interface ProductType {
-  id: string;
-  name: string;
-  lastPurchase: string;
-  amount: number;
-}
+import { formatToUTC } from "../../utils/formatToUTC/formatToUTC";
 
 const Predicao = () => {
   const { id } = useParams();
   const [data, setData] = useState<Customer | null>();
   const [dataProdutos, setDataProdutos] = useState<Product[]>([]);
   const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
-  const [isOpen, setIsOpen] = useState<boolean>(true);
   const { menu, toggleMenu } = useMenu();
 
   useEffect(() => {
@@ -54,14 +47,6 @@ const Predicao = () => {
 
     fetchData();
   }, [id]);
-
-  const formatToUTC = (isoDate: string) => {
-    const date = new Date(isoDate);
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-    const year = date.getUTCFullYear();
-    return `${day}/${month}/${year}`;
-  };
 
   const handleChange = (productId: string) => {
     setChecked((prevState) => ({
@@ -75,7 +60,8 @@ const Predicao = () => {
   );
 
   const historicoProdutosDecrescente = dataProdutos.sort(
-    (a, b) => new Date(b.lastPurchase) - new Date(a.lastPurchase)
+    (a: Product, b: Product) =>
+      new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime()
   );
 
   return (
@@ -92,7 +78,7 @@ const Predicao = () => {
             </Link>
             <h3>Predição</h3>
           </DivPredicao>
-          <DivInfoCliente>
+          <DivInfoCliente theme={theme}>
             {data && (
               <>
                 <h3>{data.name}</h3>
@@ -110,7 +96,7 @@ const Predicao = () => {
             )}
           </DivInfoCliente>
           <DivTabelas>
-            <DivTabela>
+            <DivTabela theme={theme}>
               <DivImgTitle>
                 <HistoryIcon
                   sx={{
@@ -130,14 +116,19 @@ const Predicao = () => {
                     "Última Compra",
                     " Qtd.",
                     "Dar Baixa",
-                  ]} width="600px"  >
+                  ]}
+                  width="100%"
+                  backgroundBody={theme.palette.primary.contrastText}
+                  backgroundColor={theme.palette.primary.main}
+                  colorHeader={theme.palette.primary.contrastText}
+                >
                   {historicoProdutosDecrescente.map((produtos) => (
                     <tr>
                       <TdId>{produtos.id}</TdId>
-                      <td>{produtos.name}</td>
-                      <td>{formatToUTC(produtos.lastPurchase)}</td>
-                      <td>{produtos.amount}</td>
-                      <td>
+                      <TdId>{produtos.name}</TdId>
+                      <TdId>{formatToUTC(produtos.lastPurchase)}</TdId>
+                      <TdId>{produtos.amount}</TdId>
+                      <TdId>
                         <ToggleButton
                           sx={{ border: "none" }}
                           key={produtos.id}
@@ -153,16 +144,22 @@ const Predicao = () => {
                             }}
                           />
                         </ToggleButton>
-                      </td>
+                      </TdId>
                     </tr>
                   ))}
                 </TablesComponent>
               )}
             </DivTabela>
-            <DivTabela>
+            <DivTabela theme={theme}>
               <DivImgTitle>
-                <ImgProducts src={ImgProdutos} alt="imagem produto" />
-                <H3ProdutosBaixas>Produtos Acabando</H3ProdutosBaixas>
+                <ImgProducts
+                  theme={theme}
+                  src={ImgProdutos}
+                  alt="imagem produto"
+                />
+                <H3ProdutosBaixas theme={theme}>
+                  Produtos Acabando
+                </H3ProdutosBaixas>
               </DivImgTitle>
               {produtosAcabando && (
                 <TablesComponent
@@ -172,15 +169,19 @@ const Predicao = () => {
                     "Última Compra",
                     " Qtd.",
                     "Dar Baixa",
-                  ]}  width="600px"
+                  ]}
+                  width="100%"
+                  backgroundBody={theme.palette.primary.contrastText}
+                  backgroundColor={theme.palette.primary.main}
+                  colorHeader={theme.palette.primary.contrastText}
                 >
                   {produtosAcabando.map((produtos) => (
                     <tr>
                       <TdId>{produtos.id}</TdId>
-                      <td>{produtos.name}</td>
-                      <td>{formatToUTC(produtos.lastPurchase)}</td>
-                      <td>{produtos.amount}</td>
-                      <td>
+                      <TdId>{produtos.name}</TdId>
+                      <TdId>{formatToUTC(produtos.lastPurchase)}</TdId>
+                      <TdId>{produtos.amount}</TdId>
+                      <TdId>
                         <ToggleButton
                           sx={{ border: "none" }}
                           key={produtos.id}
@@ -196,7 +197,7 @@ const Predicao = () => {
                             }}
                           />
                         </ToggleButton>
-                      </td>
+                      </TdId>
                     </tr>
                   ))}
                 </TablesComponent>

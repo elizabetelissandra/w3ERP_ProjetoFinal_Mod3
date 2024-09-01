@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {theme} from "../../context/themeContext";
+import {theme} from "../../styles/themeStyles";
 
 export const DivDetalhamento = styled.div`
     display: flex;
@@ -49,19 +49,19 @@ export const DivBotoes = styled.div`
 `
 
 export const H3 = styled.h3`
-    color: ${theme.palette.primary.main};
+    color: ${({ theme }) => theme.palette.primary.main};
     font-size: 32px;
     text-align: start;
 `
 
 export const ImgSetaCaindo = styled.img`
-    background-color: ${theme.palette.error.main};
+    background-color: ${({ theme }) => theme.palette.error.main};
     padding: 10px;
     border-radius: 25%;
 `
 
 export const ImgSetaSubindo = styled.img`
-    background-color: ${theme.palette.success.main};
+    background-color: ${({ theme }) => theme.palette.success.main};
     padding: 10px;
     border-radius: 25%;
 `

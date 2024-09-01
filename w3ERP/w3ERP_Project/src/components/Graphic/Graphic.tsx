@@ -1,5 +1,5 @@
 import Chart from 'react-apexcharts'
-import { theme } from "../../context/themeContext";
+import { theme } from "../../styles/themeStyles";
 
 export type RadialBarProps = {
   percentageGraphic: number

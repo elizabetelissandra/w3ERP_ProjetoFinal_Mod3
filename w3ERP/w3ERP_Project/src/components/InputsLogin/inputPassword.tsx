@@ -31,14 +31,16 @@ const InputPassword: React.FC<InputPasswordProps> = ({
       <FormControl
         sx={{ mt: 1, width: "400px", height: "67px" }}
         variant="outlined"
+        focused
       >
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <InputLabel htmlFor="outlined-adornment-password" >Password</InputLabel>
         <OutlinedInput
           id="outlined-adornment-password"
           color={passwordValid ? 'success' : 'primary'}
+          placeholder= "Insira sua senha"
           type={show ? "text" : "password"}
           endAdornment={
-            <InputAdornment position="end">
+            <InputAdornment position="end" >
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClick}
@@ -52,6 +54,7 @@ const InputPassword: React.FC<InputPasswordProps> = ({
           label="Password"
           value={value}
           onChange={onChange}
+          
           
         />
       </FormControl>

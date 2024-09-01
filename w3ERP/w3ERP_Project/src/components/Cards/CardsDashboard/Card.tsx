@@ -1,4 +1,4 @@
-import { theme } from "../../../context/themeContext"
+import { theme } from "../../../styles/themeStyles"
 import  {DivCard, DivConteudo, DivGrafico, DivValores, PCard, PPorcentagem, PQuantidade, SpanGrafico } from "../CardsDashboard/CardStyles"
 
 interface CardProps {

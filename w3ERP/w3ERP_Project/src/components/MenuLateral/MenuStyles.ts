@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import { theme } from "../../context/themeContext";
 import { Link } from "react-router-dom";
 
-interface MenuProps {
+interface Menu {
   isOpen: boolean;
 }
 
-export const AsideStyles = styled.aside<MenuProps>`
+export const AsideStyles = styled.aside<Menu>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: ${(props) => (props.isOpen ? "space-between" : "flex-start")};
-  max-width: 300px;
-  background: ${theme.palette.primary.main};
+  justify-content: ${({isOpen}) => (isOpen ? "space-between" : "flex-start")};
+  max-width: 350px;
+  
+  background: ${({theme}) => (theme.palette.primary.main)};
   font-family: "Sora", sans-serif;
-  gap: ${(props) => (props.isOpen ? "20px" : "300px")};
+  gap: ${({isOpen}) => (isOpen ? "20px" : "300px")};
   padding: 20px;
 `;
 export const ImgLogo = styled.img`
@@ -32,7 +32,7 @@ export const Nav = styled.nav`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 20px;
+  gap: 50px;
 `;
 
 export const DivIcones = styled.div`
@@ -41,6 +41,15 @@ export const DivIcones = styled.div`
   justify-content: flex-start;
   width: 100%;
   gap: 50px;
+&:hover {
+  cursor: pointer;
+  background-color: ${({theme}) => (theme.palette.info.main)};
+  border-radius: 10px;
+  color: ${({theme}) => (theme.palette.primary.contrastText)};
+  transition: all 0.5s ease-in-out;
+  padding: 10px;
+}
+  
 `;
 
 export const ImgIcones = styled.img`
@@ -50,13 +59,15 @@ export const ImgIcones = styled.img`
 `;
 
 export const LinkSttyled = styled(Link)`
-width: 100%;
-margin-left: 40px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+text-decoration: none;
 `
 
 export const Span = styled.span`
   font-size: 16px;
-  color: ${theme.palette.primary.contrastText};
+  color: ${({theme}) => (theme.palette.primary.contrastText)};
 `;
 
 export const ImgFaleConosco = styled.img`

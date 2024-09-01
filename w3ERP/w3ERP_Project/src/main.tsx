@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { GlobalStyles } from "./styles/GlobalStyles.ts";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./context/themeContext.ts";
+import { theme } from "./styles/themeStyles.ts";
 import { MenuProvider } from "./context/menuContext.tsx";
 
 createRoot(document.getElementById("root")!).render(

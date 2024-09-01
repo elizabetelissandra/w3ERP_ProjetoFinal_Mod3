@@ -1,7 +1,7 @@
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { ButtonStyled, CardLogoutContent, CardLogoutStyled, LinkStyled } from "./CardLogoutStyles";
-import { theme } from "../../../context/themeContext";
+import { theme } from "../../../styles/themeStyles";
 import { Fade } from "@mui/material";
 import {Transition } from 'react-transition-group';
 
@@ -25,22 +25,6 @@ const CardLogout = () => {
           </CardLogoutStyled>
         </Fade>
       </Transition>
-
-      {/* <Transition mountOnEnter unmountOnExit in={!true} timeout={200}>
-        <Fade in={!true} timeout={200}>
-        <CardLogoutStyled theme={theme}>
-            <CardLogoutContent theme={theme}>
-              <p>
-                <SettingsIcon /> Configurações
-              </p>
-              <hr />
-              <p onClick={() => (window.location.href = "/")}>
-                <LogoutIcon /> Sair
-              </p>
-            </CardLogoutContent>
-          </CardLogoutStyled>
-        </Fade>
-      </Transition> */}
     </>
   );
 };

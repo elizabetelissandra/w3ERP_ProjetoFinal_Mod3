@@ -5,12 +5,19 @@ import UserIcon from "../../ui/img/user.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { DivHeader, FigureHeader, FigureIMG, HeaderStyled, SpanNome } from "./headerStyles";
 import React from "react";
+import CardLogout from "../Cards/CardLogout/CardLogout";
 
 interface HeaderProps {
   onClick: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({onClick}) => {
+ const [isShowCard, setIsShowCard] = React.useState(false);
+
+ const handleClick = () => {
+   setIsShowCard(!isShowCard);
+ };
+
   return (
     <>
       <HeaderStyled>
@@ -29,7 +36,11 @@ const Header: React.FC<HeaderProps> = ({onClick}) => {
             <SpanNome>Elizabete Lissandra</SpanNome>
             <span>elizabete@gmail.com</span>
           </FigureHeader>
-          <KeyboardArrowDownIcon />
+          <IconButton onClick={handleClick}>
+          <KeyboardArrowDownIcon  />
+          {isShowCard && <div><CardLogout/></div>}
+          </IconButton>
+          
         </DivHeader>
       </HeaderStyled>
     </>

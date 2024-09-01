@@ -5,7 +5,7 @@ import Detalhamento from "../../pages/Detalhamento/Detalhamento";
 
 import Predicoes from "../../pages/Predicoes/Predicoes";
 import Predicao from "../../pages/Predicao/Predicao";
-import Produtos from "../../pages/Produtos/Produtos";
+import Produtos from "../../pages/Produtos/Produtos.tsx";
 
 const Routes= () => {
   return (

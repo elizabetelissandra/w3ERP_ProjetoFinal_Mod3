@@ -6,6 +6,6 @@ body{
 margin: 0;
 padding: 0;
 font-family: 'Sora', sans-serif;
-background-color: ${props => props.theme.palette.background.paper};
+background-color: ${({theme}) => theme.palette.background.paper};
 }
 `

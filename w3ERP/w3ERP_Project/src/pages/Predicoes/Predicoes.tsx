@@ -4,7 +4,7 @@ import Menu from "../../components/MenuLateral/Menu";
 import { DivDashboard, DivHeader } from "../Dashboard/DashboardStyles";
 import { useEffect, useState } from "react";
 import { Customer, Product } from "../../types/DashboardTypes";
-import { axiosClientes, axiosProdutos } from "../../api/axiosConfig";
+import { axiosClientes } from "../../api/axiosConfig";
 import {
   DivAroundSearch,
   DivCardsPredicao,
@@ -15,34 +15,31 @@ import {
 } from "../Predicoes/PredicoesStyles";
 import SearchIcon from "@mui/icons-material/Search";
 import { useMenu } from "../../context/menuContext";
+import { theme } from "../../styles/themeStyles";
+import TablesComponent from "../../components/Tabelas/TablesComponent";
+import { TdId } from "../../components/Tabelas/TablesComponentStyles";
+import { formatToUTC } from "../../utils/formatToUTC/formatToUTC";
 
 const Predicoes = () => {
   const [produtos, setProdutos] = useState<Product[]>([]);
   const [clientes, setClientes] = useState<Customer[]>([]);
-  const [dataTableProdutos, setDataTableProdutos] = useState<Product[]>([]);
   const [dataTableClientes, setDataTableClientes] = useState<Customer[]>([]);
-  const [ isOpen, setIsOpen] = useState<boolean>(true);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("");
   const { menu, toggleMenu } = useMenu();
 
   useEffect(() => {
     const fetchData = async () => {
-      const responseProducts = await axiosProdutos.get("/");
-      setDataTableProdutos(responseProducts.data);
-      setProdutos(responseProducts.data);
-      console.log("Produtos", responseProducts.data);
-
       const responseCustomers = await axiosClientes.get("/");
       setDataTableClientes(responseCustomers.data);
       setClientes(responseCustomers.data);
-      console.log("Clientes", responseCustomers.data);
+      setProdutos(responseCustomers.data[0].products.slice(0, 3));
     };
     fetchData();
   }, []);
 
   const filteredClientes = clientes?.filter((cliente) => {
-    return cliente.name.toLowerCase().includes(searchTerm.toLowerCase())
-  })
+    return cliente.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <>
@@ -51,10 +48,11 @@ const Predicoes = () => {
         <DivHeader>
           <Header onClick={toggleMenu} />
           <DivNomeSeach>
-            <H3>Predições</H3>
-            <DivAroundSearch>
-              <DivInputSearch>
+            <H3 theme={theme}>Predições</H3>
+            <DivAroundSearch theme={theme}>
+              <DivInputSearch theme={theme}>
                 <InputSearch
+                  theme={theme}
                   type="text"
                   placeholder="Pesquese uma palavra-chave "
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -63,28 +61,36 @@ const Predicoes = () => {
               </DivInputSearch>
             </DivAroundSearch>
           </DivNomeSeach>
-          <DivCardsPredicao>
-            {(clientes === null) || (produtos === null) ? (
-              <>
-              Carregando...
-              </>
+          <DivCardsPredicao theme={theme}>
+            {clientes === null || produtos === null ? (
+              <>Carregando...</>
             ) : (
-              
               <>
-              {filteredClientes.slice(0, 15).map((cliente) => (
-                
+                {filteredClientes.slice(0, 15).map((cliente) => (
                   <CardPredicao
                     key={cliente.id}
                     id={cliente.id}
                     NomeCliente={cliente.name}
                     statusCliente={"Status vai aqui "}
-                    produtos={cliente.products}
-                  />
-                
-              ))}
+                  >
+                    <TablesComponent
+                      headers={["Produtos", "Próx. compra"]}
+                      width={"300px"}
+                      backgroundBody={"##EEEEEE"}
+                      colorHeader="#796CE0"
+                      backgroundHeader={"##EEEEEE"}
+                    >
+                      {produtos.map((product: Product) => (
+                        <tr key={product.id}>
+                          <TdId>{product.name}</TdId>
+                          <TdId>{formatToUTC(product.lastPurchase)}</TdId>
+                        </tr>
+                      ))}
+                    </TablesComponent>
+                  </CardPredicao>
+                ))}
               </>
             )}
-            
           </DivCardsPredicao>
         </DivHeader>
       </DivDashboard>

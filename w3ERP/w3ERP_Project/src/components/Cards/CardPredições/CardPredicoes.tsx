@@ -1,44 +1,45 @@
 import { Children } from "react";
 import AccessibleTable from "../../Tabelas/TabelaPredicao";
 import User from "../../../ui/img/user.png";
-import { DivCard, DivInfos, PStatus } from "./CardPredicoesStyles";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { DivBotoes, DivCard, DivInfos, PStatus } from "./CardPredicoesStyles";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
 import { Stack, IconButton } from "@mui/material";
-import { theme } from "../../../context/themeContext";
+import { theme } from "../../../styles/themeStyles";
+import TablesComponent from "../../Tabelas/TablesComponent";
 
 interface CardPredicaoProps {
   NomeCliente: string;
   statusCliente: string;
-  produtos: any[];
   id: string;
+  children?: React.ReactNode;
 }
 
 const CardPredicao: React.FC<CardPredicaoProps> = ({
   NomeCliente,
   statusCliente,
-  produtos,
-  id
+  id,
+  children,
 }) => {
   return (
-    <DivCard>
+    <DivCard theme={theme}>
       <DivInfos>
-        <div>
-          <img src={User} alt="Logo do perfil" />
-        </div>
-        <div>
-          <h3>{NomeCliente}</h3>
-          <PStatus theme={theme}>{statusCliente}</PStatus>
-        </div>
+        <DivBotoes>
+          <div>
+            <img src={User} alt="Logo do perfil" />
+          </div>
+          <div>
+            <h3>{NomeCliente}</h3>
+            <PStatus theme={theme}>{statusCliente}</PStatus>
+          </div>
+        </DivBotoes>
         <Link to={`/Predicao/${id}`}>
           <IconButton aria-label="menu">
             <ArrowForwardIosIcon />
           </IconButton>
         </Link>
-        </DivInfos>
-        <div>
-          <AccessibleTable rows={produtos.slice(0, 3)} />
-        </div>
+      </DivInfos>
+      <div>{children}</div>
     </DivCard>
   );
 };
